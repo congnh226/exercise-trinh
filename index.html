@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Welcome</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <h2 class="page-header">Title</h2>
+    <p>Please enter number</p>
+    <form method="post" action="/">
+        <div class="form-group">
+            <label>Username</label>
+            <input class="form-control" id="money" name="money" type="text" placeholder="Enter Money" onkeyup="currency()" />
+        </div>
+        <input class="btn btn-primary" type="submit" name="submit" value="Login" />
+    </form>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        var load = false;
+        var tmp = 0;
+        function currency() {
+            // var input = document.getElementById("money");
+            var input = $("input[name='money']");
+            var value = input.val().trim();
+
+            value = value.split('.').join(''); //
+
+            if (!value || value === 0) {
+                load = false;
+            } else if (value > 0 && !load) {
+                // num= formatter.format(value);                  
+                load = true;
+                input.val(value + '.000');
+            } else if (value > 0 && value <= 30000000) {
+                let numb = numberWithCommas(value);
+                tmp = numb;
+                input.val(numb);
+            } else {
+                input.val(tmp);
+            }
+        }
+        // const formatter = new Intl.NumberFormat('vi-VI', {
+        //         style: 'currency',
+        //         currency: 'VND',
+        //         minimumFractionDigits: 3
+        //     });
+        const numberWithCommas = (x) => {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+    </script>
+</body>
+
+</html>
